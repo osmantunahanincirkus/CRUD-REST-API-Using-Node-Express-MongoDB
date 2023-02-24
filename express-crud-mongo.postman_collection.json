@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "0e50b20e-e7fc-491a-89b1-b4f8e6c9f989",
+		"name": "express-crud-mongo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25941567"
+	},
+	"item": [
+		{
+			"name": "Todo",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"todo 12\",\r\n    \"description\" : \"test test test test açıklama\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/todo",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"todo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"todo 12-1\",\r\n    \"description\" : \"test test test test açıklama\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/todo/63f7bb14fc961f9e3abb8f2e",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"todo",
+								"63f7bb14fc961f9e3abb8f2e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/todo/63f7bb14fc961f9e3abb8f2e",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"todo",
+								"63f7bb14fc961f9e3abb8f2e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/todo/63f7bb14fc961f9e3abb8f2e",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"todo",
+								"63f7bb14fc961f9e3abb8f2e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/todo",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"todo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		},
+		{
+			"key": "api_url",
+			"value": "{{base_url}}/api",
+			"type": "string"
+		}
+	]
+}
