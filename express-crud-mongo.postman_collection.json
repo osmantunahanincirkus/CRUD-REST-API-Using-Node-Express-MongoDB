@@ -50,13 +50,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{api_url}}/todo/63f7bb14fc961f9e3abb8f2e",
+							"raw": "{{api_url}}/todo/",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
 								"todo",
-								"63f7bb14fc961f9e3abb8f2e"
+								""
 							]
 						}
 					},
@@ -99,7 +99,7 @@
 					"response": []
 				},
 				{
-					"name": "Gets",
+					"name": "GetAll",
 					"request": {
 						"method": "GET",
 						"header": [],

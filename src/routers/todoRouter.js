@@ -4,7 +4,7 @@ const controller = require("../controllers/todoController");
 
 router
     .route('/')
-    .get(controller.gets)
+    .get(controller.getAll)
     .post(controller.create);
 
 router

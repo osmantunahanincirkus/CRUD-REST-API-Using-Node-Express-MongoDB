@@ -1,0 +1,1 @@
+const SERVER_ERROR="An unexpected error has occurred !";

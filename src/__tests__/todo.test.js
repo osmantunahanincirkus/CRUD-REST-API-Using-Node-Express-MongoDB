@@ -28,7 +28,7 @@ describe("Todo", () => {
         expect(body).toBeInstanceOf(Object);
         expect(Object.keys(body).length).toBeGreaterThan(0);
     });
-    test("Gets", async () => {
+    test("GetAll", async () => {
         const {body, statusCode} = await request(app).get('/api/todo');
         expect(statusCode).toBe(200);
         expect(body).toBeInstanceOf(Array);

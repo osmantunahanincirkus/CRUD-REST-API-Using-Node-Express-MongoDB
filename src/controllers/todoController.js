@@ -1,5 +1,5 @@
 const {catchAsync} = require("../utils/catch-async");
-const {create, update, deleteTodo, gets, get} = require("../services/todoService");
+const {create, update, deleteTodo, getAll, get} = require("../services/todoService");
 
 exports.create = catchAsync(async (req, res) => {
    const result = await create(req.body);
@@ -16,8 +16,8 @@ exports.delete = catchAsync(async (req, res) => {
    return res.status(204).send();
 });
 
-exports.gets = catchAsync(async (req, res) => {
-   const result = await gets();
+exports.getAll = catchAsync(async (req, res) => {
+   const result = await getAll();
    return res.status(200).send(result);
 });
 

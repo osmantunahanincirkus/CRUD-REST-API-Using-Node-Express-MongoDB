@@ -7,8 +7,8 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING, {
     'useUnifiedTopology': true
 })
     .then(() => {
-        // console.log("Successfully Connected to Database !");
+        console.log("Successfully Connected to Database !");
     })
     .catch((err) => {
-        // console.log("Failed to Connect to Database ! : " + err);
+        console.log("Failed to Connect to Database ! : " + err);
     })
