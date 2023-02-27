@@ -4,11 +4,11 @@ A CRUD application where you can do basic CRUD operations using Node, Express, M
 
 With this application you can do the following operations:
 
--Create
--Get
--Get All
--Update
--Delete
+- Create
+- Get
+- Get All
+- Update
+- Delete
 
 ## Installation
 
@@ -60,8 +60,8 @@ Then you can execute your database operations such as create, get, update and de
 
 Thank you for your contributions.
 
-[baristure] (https://github.com/baristure)
+- [@baristure](https://github.com/baristure)
 
 ## License
 
-[MIT License] (LICENSE)
+[MIT License](LICENSE)
