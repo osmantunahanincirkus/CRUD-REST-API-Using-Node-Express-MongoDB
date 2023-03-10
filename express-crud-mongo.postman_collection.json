@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"todo 12\",\r\n    \"description\" : \"test test test test açıklama\"\r\n}",
+							"raw": "{\r\n    \"name\": \"todo 13\",\r\n    \"description\" : \"test test test test açıklama\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -42,7 +42,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"todo 12-1\",\r\n    \"description\" : \"test test test test açıklama\"\r\n}",
+							"raw": "{\r\n    \"name\": \"todo 11\",\r\n    \"description\" : \"test test test test açıklama\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -50,13 +50,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{api_url}}/todo/",
+							"raw": "{{api_url}}/todo/63fdca1a0eb8646e581e2124",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
 								"todo",
-								""
+								"63fdca1a0eb8646e581e2124"
 							]
 						}
 					},
@@ -68,13 +68,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{api_url}}/todo/63f7bb14fc961f9e3abb8f2e",
+							"raw": "{{api_url}}/todo/63fc98ea7b521fac95917017",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
 								"todo",
-								"63f7bb14fc961f9e3abb8f2e"
+								"63fc98ea7b521fac95917017"
 							]
 						}
 					},
@@ -86,13 +86,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{api_url}}/todo/63f7bb14fc961f9e3abb8f2e",
+							"raw": "{{api_url}}/todo/63f35428889186cdca2330d5",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
 								"todo",
-								"63f7bb14fc961f9e3abb8f2e"
+								"63f35428889186cdca2330d5"
 							]
 						}
 					},
