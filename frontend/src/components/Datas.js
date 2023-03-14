@@ -1,4 +1,4 @@
-const datas = [
+const Datas = [
     {
         _id:"1",
         name:"todo 14",
@@ -11,7 +11,7 @@ const datas = [
         _id:"3",
         name:"todo 16",
         description:"test test test test açıklama"
-    },
+    }
 ]
 
-export default datas;
+export default Datas;

@@ -1,25 +1,25 @@
-import React, {useState, useEffect} from 'react';
-import {Button, Form} from 'react-bootstrap'
+import React, {useState, useEffect} from "react";
+import {Button, Form} from "react-bootstrap";
 import "bootstrap/dist/css/bootstap.min.css";
-import datas from './datas';
-import {} from "uuid";
-import {Link,useNavigate} from 'react-router-dom'
+import Datas from "./Datas";
+import { v4 as uuid } from "uuid";
+import {Link,useNavigate} from "react-router-dom";
 
 function Edit(){
-    const [name,setname] = useState("");
-    const[description,setdescription] = useState("");
-    const [id, setId] = useState("");
+    const [name, setName] = useState("");
+    const[description, setDescription] = useState("");
+    const [_id, setId] = useState("");
 
     let history = useNavigate();
 
-    var index = datas.map(function(e){
-        return e.id
-    }).indexOf(id);
+    var index = Datas.map(function(e){
+        return e._id
+    }).indexOf(_id);
 
     const handleSubmit=(e) => {
         e.preventDefault();
 
-       let a = datas[index];
+       let a = Datas[index];
        a.name = name;
        a.description = description;
 
@@ -27,8 +27,8 @@ function Edit(){
     }
 
     useEffect(() =>{
-        setname(localStorage.getItem('Name'))
-        setdescription(localStorage.getItem('Description'))
+        setName(localStorage.getItem('Name'))
+        setDescription(localStorage.getItem('Description'))
         setId(localStorage.getItem('Id'))
     },[])
 

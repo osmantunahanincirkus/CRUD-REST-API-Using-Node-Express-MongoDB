@@ -1,25 +1,25 @@
 import React from 'react';
 import {Button, Table} from 'react-bootstrap';
 import "bootstrap/dist/css/bootstap.min.css";
-import datas from './datas';
+import Datas from './Datas';
 import {Link,useNavigate} from 'react-router-dom'
 
 function Home(){
     
     let history = useNavigate();
 
-    const handleEdit = (id, name, description) => {
+    const handleEdit = (_id, name, description) => {
         localStorage.setItem('Name',name);
         localStorage.setItem('Description',description);
-        localStorage.setItem('Id',id);
+        localStorage.setItem('Id',_id);
     }
     
-    const handleDelete = (id) => {
-        var index = datas.map(function(e){
-            return e.id
-        }).indexOf(id);
+    const handleDelete = (_id) => {
+        var index = Datas.map(function(e){
+            return e._id
+        }).indexOf(_id);
 
-        datas.splice(index,1);
+        Datas.splice(index,1);
 
         history('/');
     }
@@ -43,9 +43,9 @@ function Home(){
                     </thread>
                     <tbody>
                         {
-                            datas && datas.length > 0
+                            Datas && Datas.length > 0
                             ?
-                            datas.map((item) =>{
+                            Datas.map((item) =>{
                                 return(
                                     <tr>
                                         <td>
@@ -55,11 +55,11 @@ function Home(){
                                             {item.description}
                                         </td>
                                         <td>
-                                            <Link to={'/edit'}>
-                                            <Button onClick={() => handleEdit(item.id, item.name, item.description)}>Edit</Button>
+                                            <Link to={`/edit`}>
+                                            <Button onClick={() => handleEdit(item._id, item.name, item.description)}>Edit</Button>
                                             </Link>
                                             &nbsp;
-                                            <Button onClick={() => handleDelete(item.id)}>DELETE</Button>
+                                            <Button onClick={() => handleDelete(item._id)}>DELETE</Button>
                                         </td>
                                     </tr>
                                 )

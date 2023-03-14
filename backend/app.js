@@ -1,7 +1,3 @@
-import Home from './src/components/home'
-import Add from './src/components/add';
-import Edit from './src/components/edit';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 const express = require("express")
 const app = express()
 require("dotenv").config()
@@ -20,19 +16,5 @@ app.use((req,res,next)=>{
 })
 app.use(errorConverter);
 app.use(errorHandler);
-
-function app(){
-    return(
-        <div className="app">
-            <Router>
-                <Routes>
-                    <Route path='/' element={<Home />} />
-                    <Route path="/create" element={<Add />} />
-                    <Route path="/edit" element={<Edit />} />
-                </Routes>
-            </Router>
-        </div>
-    );
-}
 
 module.exports = app;
