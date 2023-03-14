@@ -1,6 +1,5 @@
 import React from 'react';
 import {Button, Table} from 'react-bootstrap';
-import "bootstrap/dist/css/bootstap.min.css";
 import Datas from './Datas';
 import {Link,useNavigate} from 'react-router-dom'
 
@@ -25,7 +24,7 @@ function Home(){
     }
 
     return(
-        <Fragment>
+        <React.Fragment>
             <div style={{margin:"10rem"}}>
                 <Table striped bordered hover size="sm">
                     <thread>
@@ -75,7 +74,7 @@ function Home(){
                     <Button size="lg">Create</Button>
                 </Link>
             </div>
-        </Fragment>
+        </React.Fragment>
     )
 }
 

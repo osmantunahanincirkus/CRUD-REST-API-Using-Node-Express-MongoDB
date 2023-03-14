@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {Button, Form} from "react-bootstrap";
-import "bootstrap/dist/css/bootstap.min.css";
 import Datas from "./Datas";
 import { v4 as uuid } from "uuid";
 import {Link,useNavigate} from "react-router-dom";
