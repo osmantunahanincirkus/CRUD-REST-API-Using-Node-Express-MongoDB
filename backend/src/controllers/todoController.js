@@ -1,27 +1,27 @@
 const {catchAsync} = require("../utils/catch-async");
-const {create, update, deleteTodo, getAll, get} = require("../services/todoService");
+const {createTodo, updateTodo, deleteTodo, getAllTodos, getTodoById} = require("../services/todoService");
 
-exports.create = catchAsync(async (req, res) => {
-   const result = await create(req.body);
+exports.createTodo = catchAsync(async (req, res) => {
+   const result = await createTodo(req.body);
    return res.status(201).send(result);
 });
 
-exports.update = catchAsync(async (req, res) => {
-   const result = await update(req.params.id, req.body);
+exports.updateTodo = catchAsync(async (req, res) => {
+   const result = await updateTodo(req.params.id, req.body);
    return res.status(200).send(result);
 });
 
-exports.delete = catchAsync(async (req, res) => {
+exports.deleteTodo = catchAsync(async (req, res) => {
    await deleteTodo(req.params.id);
    return res.status(204).send();
 });
 
-exports.getAll = catchAsync(async (req, res) => {
-   const result = await getAll();
+exports.getAllTodos = catchAsync(async (req, res) => {
+   const result = await getAllTodos();
    return res.status(200).send(result);
 });
 
-exports.get = catchAsync(async (req, res) => {
-   const result = await get(req.params.id);
+exports.getTodoById = catchAsync(async (req, res) => {
+   const result = await getTodoById(req.params.id);
    return res.status(200).send(result);
 });

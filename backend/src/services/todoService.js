@@ -1,62 +1,70 @@
-const {Todo} = require("../models/todoModel");
-const {ApiError} = require("../utils/api.error");
+const { Todo } = require("../models/todoModel");
+const { ApiError } = require("../utils/api.error");
 
-exports.create = async (body) => {
-    const todo = await Todo.findOne({name: body.name}).catch((err) => {
-        throw new ApiError(500, responseError.SERVER_ERROR, err);
-    });
-    if (todo) {
-        throw new ApiError(400, 'There is a record with this name !');
-    }
-
-    return await Todo.create(body).catch((err) => {
-        throw new ApiError(500, responseError.SERVER_ERROR, err);
-    });
-}
-
-exports.update = async (id, body) => {
-    let todo = await Todo.findById(id).catch((err)=>{
-        throw new ApiError(500, responseError.SERVER_ERROR, err);
-    });
-    if (!todo) {
-        throw new ApiError(404, 'Todo not found !');
+exports.createTodo = async (body) => {
+  try {
+    const existingTodo = await Todo.findOne({ name: body.name });
+    
+    if (existingTodo) {
+      throw new ApiError(400, "There is already a todo with this name.");
     }
     
-    Object.keys(body).map((key) => {
-        todo[key] = body[key];
-    })
+    return await Todo.createTodo(body);
+  } catch (err) {
+    throw new ApiError(500, "Could not create todo.", err);
+  }
+};
 
-    return await todo.save().catch((err) => {
-        throw new ApiError(500, responseError.SERVER_ERROR, err);
-    });
-}
+exports.updateTodo = async (id, body) => {
+  try {
+    const todo = await Todo.findByIdAndUpdate(
+      id,
+      body,
+      { new: true, runValidators: true }
+    );
+    
+    if (!todo) {
+      throw new ApiError(404, "Todo not found.");
+    }
+    
+    return todo;
+  } catch (err) {
+    throw new ApiError(500, "Could not update todo.", err);
+  }
+};
 
 exports.deleteTodo = async (id) => {
-    const todo = await Todo.findById(id).catch((err) => {
-        throw new ApiError(500, responseError.SERVER_ERROR, err);
-    });
+  try {
+    const todo = await Todo.findById(id);
+    
     if (!todo) {
-        throw new ApiError(404, 'Todo not found !');
+      throw new ApiError(404, "Todo not found.");
     }
+    
+    await todo.remove();
+  } catch (err) {
+    throw new ApiError(500, "Could not delete todo.", err);
+  }
+};
 
-    return await todo.delete().catch((err) => {
-        throw new ApiError(500, responseError.SERVER_ERROR, err);
-    });
-}
-
-exports.get = async (id) => {
-    const todo = await Todo.findById(id).catch((err) => {
-        throw new ApiError(500, responseError.SERVER_ERROR, err);
-    });
+exports.getTodoById = async (id) => {
+  try {
+    const todo = await Todo.findById(id);
+    
     if (!todo) {
-        throw new ApiError(404, 'Todo not found !');
+      throw new ApiError(404, "Todo not found.");
     }
-
+    
     return todo;
-}
+  } catch (err) {
+    throw new ApiError(500, "Could not get todo.", err);
+  }
+};
 
-exports.getAll = async () => {
-    return await Todo.find({}).catch((err) => {
-        throw new ApiError(500, responseError.SERVER_ERROR, err);
-    });
-}
+exports.getAllTodos = async () => {
+  try {
+    return await Todo.find({});
+  } catch (err) {
+    throw new ApiError(500, "Could not get todos.", err);
+  }
+};
