@@ -4,13 +4,13 @@ const controller = require("../controllers/todoController");
 
 router
     .route('/')
-    .get(controller.getAll)
-    .post(controller.create);
+    .get(controller.getAllTodos)
+    .post(controller.createTodo);
 
 router
     .route('/:id')
-    .get(controller.get)
-    .put(controller.update)
-    .delete(controller.delete);
+    .get(controller.getTodoById)
+    .put(controller.updateTodo)
+    .delete(controller.deleteTodo);
 
 module.exports = router
