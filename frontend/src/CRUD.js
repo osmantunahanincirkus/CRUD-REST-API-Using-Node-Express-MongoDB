@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CRUD = () => {
 
@@ -63,18 +64,53 @@ const CRUD = () => {
     }
 
     const handleEdit =(_id) => {
-      //alert(_id);
       handleShow();
+      axios.get(`http://localhost:5000/api/todo/${_id}`)
+      .then((result) => {
+        setEditName(result.data.name);
+        setEditDescription(result.data.description);
+        setEditIsComplated(result.data.isComplated);
+        setEditId(_id);
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     }
 
     const handleDelete =(_id) => {
       if(window.confirm("Are you sure to delete this todo?") == true){
-        alert(_id)
+        axios.delete(`http://localhost:5000/api/todo/${_id}`)
+        .then((result) => {
+          if(result.status === 200){
+            toast.success('Todo has been deleted !');
+            getData();
+          }
+        })
+        .catch((error) => {
+          toast.error(error);
+        })
       }
     }
 
     const handleUpdate =() => {
-
+      const url = `http://localhost:5000/api/todo/${editID}`;
+      const data = {
+        "_id": editID,
+        "name": editName,
+        "description": editDescription,
+        "isComplated": editIsComplated
+      }
+      
+      axios.put(url, data)
+      .then((result) => {
+        handleClose();
+        getData();
+        clear();
+        toast.success('Todo has been updated !');
+      })
+      .catch((error) => {
+        toast.error(error);
+      })
     }
 
     const handleSave = () => {
@@ -89,6 +125,10 @@ const CRUD = () => {
       .then((result) => {
         getData();
         clear();
+        toast.success('Todo has been added !');
+      })
+      .catch((error) => {
+        toast.error(error);
       })
     }
 
@@ -101,9 +141,28 @@ const CRUD = () => {
       setEditIsComplated(0);
       setEditId('');
     }
+
+    const handleComplatedChange = (e) =>{
+      if(e.target.checked){
+        setIsComplated("true");
+      }
+      else {
+        setIsComplated("false");
+      }
+    }
+
+    const handleEditComplatedChange = (e) =>{
+      if(e.target.checked){
+        setEditIsComplated("true");
+      }
+      else {
+        setEditIsComplated("false");
+      }
+    }
     
     return(
         <Fragment>
+          <ToastContainer/>
           <Container>
             <Row>
               <Col>
@@ -118,7 +177,7 @@ const CRUD = () => {
               </Col>
               <Col>
               <input type="checkbox"
-              checked={isComplated === 'true' ? true : false} onChange={(e) => setIsComplated(e)} value={isComplated}
+              checked={isComplated === 'true' ? true : false} onChange={(e) => handleComplatedChange(e)} value={isComplated}
               />
               <label>IsComplated</label>
               </Col>
@@ -179,7 +238,7 @@ const CRUD = () => {
               </Col>
               <Col>
               <input type="checkbox"
-              checked={editIsComplated === 'true' ? true : false} onChange={(e) => setEditIsComplated(e)} value={editIsComplated}
+              checked={editIsComplated === 'true' ? true : false} onChange={(e) => handleEditComplatedChange(e)} value={editIsComplated}
               />
               <label>IsComplated</label>
               </Col>
