@@ -68,13 +68,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{api_url}}/todo/63fc98ea7b521fac95917017",
+							"raw": "{{api_url}}/todo/63fe0894da85463f8f5b7979",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
 								"todo",
-								"63fc98ea7b521fac95917017"
+								"63fe0894da85463f8f5b7979"
 							]
 						}
 					},
@@ -82,17 +82,24 @@
 				},
 				{
 					"name": "Get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "{{api_url}}/todo/63f35428889186cdca2330d5",
+							"raw": "{{api_url}}/todo/63fe0894da85463f8f5b7979",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
 								"todo",
-								"63f35428889186cdca2330d5"
+								"63fe0894da85463f8f5b7979"
 							]
 						}
 					},

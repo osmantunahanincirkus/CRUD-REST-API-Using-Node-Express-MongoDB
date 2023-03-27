@@ -5,7 +5,10 @@ require("./src/config/databaseConnection")
 const {errorConverter, errorHandler} = require("./src/middlewares/error");
 const {ApiRouter} = require("./src/routers/api");
 const {ApiError} = require("./src/utils/api.error");
+const cors= require("cors")
 
+
+app.use(cors())
 app.use(express.json());
 app.use("/api", ApiRouter);
 app.get("/", (req,res) => {

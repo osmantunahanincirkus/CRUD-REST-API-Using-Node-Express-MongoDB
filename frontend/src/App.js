@@ -23,33 +23,12 @@ const App = () => {
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [isComplated, setIsComplated] = useState(0)
+  const [complated, setComplated] = useState("false")
 
   const [editID, setEditId] = useState('');
   const [editName, setEditName] = useState('')
   const [editDescription, setEditDescription] = useState('')
-  const [editIsComplated, setEditIsComplated] = useState(0)
-
-  const todos = [
-    {
-      _id: '63fe0894da85463f8f5b7980',
-      name: 'todo 14',
-      description: 'test test test test açıklama',
-      isComplated: 'false'
-    },
-    {
-      _id: '63fe0894da85463f8f5b7981',
-      name: 'todo 15',
-      description: 'test test test test açıklama',
-      isComplated: 'true'
-    },
-    {
-      _id: '63fe0894da85463f8f5b7982',
-      name: 'todo 16',
-      description: 'test test test test açıklama',
-      isComplated: 'false'
-    }
-  ]
+  const [editComplated, setEditComplated] = useState("false")
 
   const [data, setData] = useState([]);
 
@@ -73,7 +52,7 @@ const App = () => {
       .then((result) => {
         setEditName(result.data.name);
         setEditDescription(result.data.description);
-        setEditIsComplated(result.data.isComplated);
+        setEditComplated(result.data.complated);
         setEditId(_id);
       })
       .catch((error) => {
@@ -102,7 +81,7 @@ const App = () => {
       "_id": editID,
       "name": editName,
       "description": editDescription,
-      "isComplated": editIsComplated
+      "complated": editComplated
     }
 
     axios.put(url, data)
@@ -122,7 +101,7 @@ const App = () => {
     const data = {
       "name": name,
       "description": description,
-      "isComplated": isComplated
+      "complated": complated
     }
 
     axios.post(url, data)
@@ -139,28 +118,28 @@ const App = () => {
   const clear = () => {
     setName('');
     setDescription('');
-    setIsComplated('');
+    setComplated('');
     setEditName('');
     setEditDescription('');
-    setEditIsComplated(0);
+    setEditComplated("false");
     setEditId('');
   }
 
   const handleComplatedChange = (e) => {
     if (e.target.checked) {
-      setIsComplated("true");
+      setComplated("true");
     }
     else {
-      setIsComplated("false");
+      setComplated("false");
     }
   }
 
   const handleEditComplatedChange = (e) => {
     if (e.target.checked) {
-      setEditIsComplated("true");
+      setEditComplated("true");
     }
     else {
-      setEditIsComplated("false");
+      setEditComplated("false");
     }
   }
 
@@ -181,9 +160,9 @@ const App = () => {
           </Col>
           <Col>
             <input type="checkbox"
-              checked={isComplated === 'true' ? true : false} onChange={(e) => handleComplatedChange(e)} value={isComplated}
+              checked={complated === "true" ? true : false} onChange={(e) => handleComplatedChange(e)} value={complated}
             />
-            <label>IsComplated</label>
+            <label>Complated</label>
           </Col>
           <Col>
             <button className="btn btn-primary" onClick={() => handleSave()}>Submit</button>
@@ -197,7 +176,7 @@ const App = () => {
             <th>#</th>
             <th>Name</th>
             <th>Description</th>
-            <th>IsComplated</th>
+            <th>Complated</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -210,7 +189,7 @@ const App = () => {
                     <td>{index + 1}</td>
                     <td>{item.name}</td>
                     <td>{item.description}</td>
-                    <td>{item.isComplated}</td>
+                    <td>{item.complated}</td>
                     <td colSpan={2}>
                       <button className="btn btn-primary" onClick={() => handleEdit(item._id)}>Edit</button> &nbsp;
                       <button className="btn btn-danger" onClick={() => handleDelete(item._id)}>Delete</button>
@@ -242,9 +221,9 @@ const App = () => {
             </Col>
             <Col>
               <input type="checkbox"
-                checked={editIsComplated === 'true' ? true : false} onChange={(e) => handleEditComplatedChange(e)} value={editIsComplated}
+                checked={editComplated === "true" ? true : false} onChange={(e) => handleEditComplatedChange(e)} value={editComplated}
               />
-              <label>IsComplated</label>
+              <label>Complated</label>
             </Col>
           </Row>
         </Modal.Body>
