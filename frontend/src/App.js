@@ -23,12 +23,12 @@ const App = () => {
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [complated, setComplated] = useState("false")
+  const [complated, setComplated] = useState('')
 
   const [editID, setEditId] = useState('');
   const [editName, setEditName] = useState('')
   const [editDescription, setEditDescription] = useState('')
-  const [editComplated, setEditComplated] = useState("false")
+  const [editComplated, setEditComplated] = useState('')
 
   const [data, setData] = useState([]);
 
@@ -46,9 +46,9 @@ const App = () => {
       })
   }
 
-  const handleEdit = (_id) => {
+  const handleEdit = async (_id) => {
     handleShow();
-    axios.get(`http://localhost:5000/api/todo/${_id}`)
+    await axios.get(`http://localhost:5000/api/todo/${_id}`)
       .then((result) => {
         setEditName(result.data.name);
         setEditDescription(result.data.description);
@@ -60,9 +60,9 @@ const App = () => {
       })
   }
 
-  const handleDelete = (_id) => {
+  const handleDelete = async (_id) => {
     if (window.confirm("Are you sure to delete this todo?") === true) {
-      axios.delete(`http://localhost:5000/api/todo/${_id}`)
+      await axios.delete(`http://localhost:5000/api/todo/${_id}`)
         .then((result) => {
           if (result.status === 204) {
             toast.success('Todo has been deleted !');
@@ -75,7 +75,7 @@ const App = () => {
     }
   }
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     const url = `http://localhost:5000/api/todo/${editID}`;
     const data = {
       "_id": editID,
@@ -84,7 +84,7 @@ const App = () => {
       "complated": editComplated
     }
 
-    axios.put(url, data)
+    await axios.put(url, data)
       .then((result) => {
         handleClose();
         getData();
@@ -96,7 +96,7 @@ const App = () => {
       })
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const url = 'http://localhost:5000/api/todo';
     const data = {
       "name": name,
@@ -104,7 +104,7 @@ const App = () => {
       "complated": complated
     }
 
-    axios.post(url, data)
+    await axios.post(url, data)
       .then((result) => {
         getData();
         clear();
@@ -121,7 +121,7 @@ const App = () => {
     setComplated('');
     setEditName('');
     setEditDescription('');
-    setEditComplated("false");
+    setEditComplated('');
     setEditId('');
   }
 
