@@ -1,0 +1,39 @@
+version: "3.4"
+
+services:
+  expressjs:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: test-test-api:latest
+    container_name: test-test-api
+    stdin_open: true
+    tty: true
+    restart: always
+    volumes:
+      - ./backend/src:/app/src:rw
+      - ./backend/app.js:/app/app.js:rw
+      - ./backend/server.js:/app/server.js:rw
+      - ./backend/.env:/app/.env:rw
+    ports:
+      - "9700:5000"
+
+  reactjs:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    image: test-test-front:latest
+    container_name: test-test-front
+    stdin_open: true
+    tty: true
+    restart: always
+    volumes:
+      - ./frontend/public:/app/public:rw
+      - ./frontend/src:/app/src:rw
+    ports:
+      - "9701:3000"
+
+networks:
+  default:
+    external:
+      name: local-network

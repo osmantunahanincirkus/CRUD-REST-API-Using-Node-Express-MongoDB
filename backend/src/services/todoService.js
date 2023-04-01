@@ -1,4 +1,4 @@
-const { Todo } = require("../models/todoModel");
+const  Todo  = require("../models/todoModel");
 const { ApiError } = require("../utils/api.error");
 
 exports.createTodo = async (body) => {
@@ -9,7 +9,7 @@ exports.createTodo = async (body) => {
       throw new ApiError(400, "There is already a todo with this name.");
     }
     
-    return await Todo.createTodo(body);
+    return await Todo.create(body);
   } catch (err) {
     throw new ApiError(500, "Could not create todo.", err);
   }

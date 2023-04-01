@@ -5,17 +5,17 @@ const {NewDate} = require("../helpers/date");
 const schemaName = "Todo";
 const schema = new Schema({
     name: {
-        type: Schema.Types.String,
+        type: String,
         required: true,
         trim: true
     },
     description: {
-        type: Schema.Types.String,
+        type: String,
         required: true,
         trim: true
     },
     complated: {
-        type: Schema.Types.String,
+        type: Boolean,
         default: false
     }
 }, {
@@ -26,5 +26,6 @@ const schema = new Schema({
         currentTime: () => NewDate() // TODO: changes UTC+00 to UTC+03.
     }
 });
+const Todo = mongoose.model(schemaName, schema);
 
-exports[schemaName] = mongoose.model(schemaName, schema);
+module.exports=Todo;

@@ -148,7 +148,7 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "http://localhost:5000",
+			"value": "http://192.168.68.102:9700",
 			"type": "string"
 		},
 		{

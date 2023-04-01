@@ -1,20 +1,40 @@
-import axios from 'axios';
-import { apiBaseUrl } from "./apiconfig";
+import {apiAxios} from "./apiconfig";
 
-const todoApi = {
-    getData : async () => {
-        const response = await axios
-            .get(`${apiBaseUrl}/api/todo`)
+export const TodoApi = {
+    gets: async () => {
+        return apiAxios
+            .get(`/todo`)
             .then((res) => {
-                return res.data;
+                return {data: res.data, error: null};
             }).catch((err) => {
-                return err.response;
+                return {data: [], error: err.message};
             });
-        return response;
     },
-
-    
-
+    create: async (payload) => {
+        return apiAxios
+            .post(`/todo`, payload)
+            .then((res) => {
+                return {data: res.data, error: null};
+            }).catch((err) => {
+                return {data: {}, error: err.message};
+            });
+    },
+    update: async (id, payload) => {
+        return apiAxios
+            .put(`/todo/${id}`, payload)
+            .then((res) => {
+                return {data: res.data, error: null};
+            }).catch((err) => {
+                return {data: {}, error: err.message};
+            });
+    },
+    delete: async (id) => {
+        return apiAxios
+            .delete(`/todo/${id}`)
+            .then((res) => {
+                return {data: res.data, error: null};
+            }).catch((err) => {
+                return {data: {}, error: err.message};
+            });
+    }
 };
-
-export default todoApi;
