@@ -1,4 +1,4 @@
-# CRUD-REST-API-Using-Node-Express-MongoDB
+# Backend
 
 A CRUD application where you can do basic CRUD operations using Node, Express, Mongodb.
 
@@ -65,32 +65,3 @@ Thank you for your contributions.
 ## License
 
 [MIT License](LICENSE)
-
----
----
-
-## Docker Build & Run
-
----
-
-### Deps
-
-- Docker
-- Docker-compose
-- Makefile
-
----
-
-### Run Project
-
-```
-docker network create local-network
-
-./backend/.env File is chance configuration
-./frontend/src/api/apiconfig.js File is chance configuration
-
-make start
-```
-
-Api Url: http://localhost:9700
-Front Url: http://localhost:9701

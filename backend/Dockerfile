@@ -1,6 +1,6 @@
 FROM node:16-alpine3.16 AS base
 
-RUN npm i -g @parvineyvazov/json-translator
+#RUN npm i -g @parvineyvazov/json-translator
 
 #############################################################################################
 FROM base AS deps

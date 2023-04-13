@@ -1,14 +1,9 @@
 import React, {useState, useEffect} from "react";
-import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {TodoApi} from '../api/todo.api';
+import {Container, Button, Modal, Form, Row, Card, CardGroup, DropdownButton, Dropdown} from 'react-bootstrap';
 
 export const TodoComponent = () => {
     const [todoList, setTodoList] = useState([]);
@@ -52,12 +47,22 @@ export const TodoComponent = () => {
         await getTodos();
     }
     const handleSave = async () => {
+        if (!todoCreateObject.name) {
+            alert('Todos name cannot be empty !');
+            return;
+          }
+          if (!todoCreateObject.description) {
+            alert('Todos description cannot be empty !');
+            return;
+          }
+
         const {error} = await TodoApi.create(todoCreateObject);
         if (error) {
             return toast.error(error);
         }
         toast.success('Todo has been added !');
         await rollbackToCreateObject();
+        setTodoList((prevState) => [todoCreateObject, ...prevState]);
     }
     const showTodoUpdateModal = async (index) => {
         setTodoUpdateObject({
@@ -83,6 +88,14 @@ export const TodoComponent = () => {
         setTodoUpdateModal(false);
     }
     const handleUpdate = async () => {
+        if (!todoUpdateObject.title) {
+            alert('Todos name cannot be empty !');
+            return;
+          }
+          if (!todoUpdateObject.description) {
+            alert('Todos description cannot be empty !');
+            return;
+          }
         const {error} = await TodoApi.update(todoUpdateObject.id, todoUpdateObject.body);
         if (error) {
             return toast.error(error);
@@ -118,66 +131,62 @@ export const TodoComponent = () => {
         <React.Fragment>
             <ToastContainer/>
             <Container>
-                <Row>
-                    <Col>
-                        <input
-                            type="text" className="form-control" placeholder="Enter Name"
-                            value={todoCreateObject.name} onChange={(e) => setTodoCreateObject({...todoCreateObject, name: e.target.value})}
-                        />
-                    </Col>
-                    <Col>
-                        <input
-                            type="text" className="form-control" placeholder="Enter Description"
-                            value={todoCreateObject.description} onChange={(e) => setTodoCreateObject({...todoCreateObject, description: e.target.value})}
-                        />
-                    </Col>
-                    <Col>
-                        <input
-                            type="checkbox" id="complated"
-                            checked={todoCreateObject.complated}
-                            onChange={(e) => setTodoCreateObject({...todoCreateObject, complated: e.target.checked})}
-                        />
-                        <label htmlFor="complated" style={{marginLeft: '5px'}}>{todoCreateObject.complated ? 'Complated' : 'Not Complated'}</label>
-                    </Col>
-                    <Col>
-                        <button className="btn btn-primary" onClick={() => handleSave()}>Submit</button>
-                    </Col>
-                </Row>
-            </Container>
-            <br></br>
-            <Table striped bordered hover>
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Complated</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {
-                    todoList && todoList.length > 0 ?
-                        todoList.map((item, index) => {
+                <div className={'col-12 p-2'}>
+                    <div className={'pb-3 mb-1 border-bottom border-1'}>
+                        <Row className={'align-items-end'}>
+                            <div className={'col-8'}>
+                                <Row>
+                                    <Form.Group className={'col-6'}>
+                                        <Form.Label>Name</Form.Label>
+                                        <Form.Control type="text" placeholder="Enter Todo's Name..." value={todoCreateObject.name} onChange={(e) => setTodoCreateObject({...todoCreateObject, name: e.target.value})}/>
+                                    </Form.Group>
+                                    <Form.Group className={'col-6'}>
+                                        <Form.Label>Description</Form.Label>
+                                        <Form.Control type="text" placeholder="Enter Todo's Description..." value={todoCreateObject.description} onChange={(e) => setTodoCreateObject({...todoCreateObject, description: e.target.value})}/>
+                                    </Form.Group>
+                                </Row>
+                            </div>
+                            <div className={'col-2'}>
+                                <Form.Group>
+                                    <Form.Check type="checkbox" label={todoCreateObject.complated ? 'Complated' : 'Not Complated'} checked={todoCreateObject.complated} onChange={(e) => setTodoCreateObject({...todoCreateObject, complated: e.target.checked})}/>
+                                </Form.Group>
+                            </div>
+                            <div className={'col-2'}>
+                                <Button variant={'primary'} className={'w-100'} onClick={() => handleSave()}>Submit</Button>
+                            </div>
+                        </Row>
+                    </div>
+                </div>
+
+                <CardGroup>
+                    {
+                        todoList.map((todo, index)=>{
                             return (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.description}</td>
-                                    <td>{item.complated === true ? "Complated" : "Not Complated"}</td>
-                                    <td colSpan={2}>
-                                        <button className="btn btn-primary" onClick={() => showTodoUpdateModal(index)}>Edit</button>
-                                        &nbsp;
-                                        <button className="btn btn-danger" onClick={() => showTodoDeleteModal(index)}>Delete</button>
-                                    </td>
-                                </tr>
+                                <div className={'col-4 p-2'} key={index}>
+                                    <Card border={todo.complated ? 'success' : ''} className={'border border-2'}>
+                                        <Card.Header>
+                                            <Row className={'align-items-center'}>
+                                                <div className={'col-10'}>
+                                                    <small className={'text-muted'}>{todo.name}</small>
+                                                </div>
+                                                <div className={'col-2'}>
+                                                    <DropdownButton variant={''} title={''}>
+                                                        <Dropdown.Item onClick={() => showTodoUpdateModal(index)}>Edit</Dropdown.Item>
+                                                        <Dropdown.Item onClick={() => showTodoDeleteModal(index)}>Delete</Dropdown.Item>
+                                                    </DropdownButton>
+                                                </div>
+                                            </Row>
+                                        </Card.Header>
+                                        <Card.Body>
+                                            <Card.Text>{todo.description}</Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </div>
                             )
                         })
-                        :
-                        console.log("Loading...")
-                }
-                </tbody>
-            </Table>
+                    }
+                </CardGroup>
+            </Container>
 
             <Modal show={todoUpdateModal} onHide={rollbackToUpdateObject}>
                 <Modal.Header>
@@ -185,35 +194,22 @@ export const TodoComponent = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <Row>
-                        <Col>
-                            <input
-                                type="text" className="form-control" placeholder="Enter Name"
-                                value={todoUpdateObject.body.name} onChange={(e) => setTodoUpdateObject({...todoUpdateObject, body: {...todoUpdateObject.body, name: e.target.value}})}
-                            />
-                        </Col>
-                        <Col>
-                            <input
-                                type="text" className="form-control" placeholder="Enter Description"
-                                value={todoUpdateObject.body.description} onChange={(e) => setTodoUpdateObject({...todoUpdateObject, body: {...todoUpdateObject.body, description: e.target.value}})}
-                            />
-                        </Col>
-                        <Col>
-                            <input
-                                type="checkbox" id="complatedUpdate"
-                                checked={todoUpdateObject.body.complated}
-                                onChange={(e) => setTodoUpdateObject({...todoUpdateObject, body: {...todoUpdateObject.body, complated: e.target.checked}})}
-                            />
-                            <label htmlFor="complatedUpdate" style={{marginLeft: '5px'}}>{todoUpdateObject.body.complated ? 'Comlated' : 'Not Complated'}</label>
-                        </Col>
+                        <Form.Group className={'col-6 mb-3'}>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" placeholder="Enter Todo's Name..." value={todoUpdateObject.body.name} onChange={(e) => setTodoUpdateObject({...todoUpdateObject, body: {...todoUpdateObject.body, name: e.target.value}})}/>
+                        </Form.Group>
+                        <Form.Group className={'col-6 mb-3'}>
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control type="text" placeholder="Enter Todo's Description..." value={todoUpdateObject.body.description} onChange={(e) => setTodoUpdateObject({...todoUpdateObject, body: {...todoUpdateObject.body, description: e.target.value}})}/>
+                        </Form.Group>
+                        <Form.Group className={'col-12'}>
+                            <Form.Check type="checkbox" label={todoUpdateObject.body.complated ? 'Complated' : 'Not Complated'} checked={todoUpdateObject.body.complated} onChange={(e) => setTodoUpdateObject({...todoUpdateObject, body: {...todoUpdateObject.body, complated: e.target.checked}})}/>
+                        </Form.Group>
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setTodoUpdateModal(false)}>
-                        Cancel
-                    </Button>
-                    <Button variant="primary" onClick={handleUpdate}>
-                        Save Changes
-                    </Button>
+                    <Button variant="secondary" onClick={() => setTodoUpdateModal(false)}>Cancel</Button>
+                    <Button variant="primary" onClick={handleUpdate}>Save Changes</Button>
                 </Modal.Footer>
             </Modal>
 
@@ -227,12 +223,8 @@ export const TodoComponent = () => {
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setTodoDeleteModal(false)}>
-                        Cancel
-                    </Button>
-                    <Button variant="danger" onClick={handleDelete}>
-                        Delete
-                    </Button>
+                    <Button variant="secondary" onClick={() => setTodoDeleteModal(false)}>Cancel</Button>
+                    <Button variant="danger" onClick={handleDelete}>Delete</Button>
                 </Modal.Footer>
             </Modal>
         </React.Fragment>
